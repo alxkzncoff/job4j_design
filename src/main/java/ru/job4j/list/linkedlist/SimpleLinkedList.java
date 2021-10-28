@@ -5,6 +5,12 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
+/**
+ * Реализация связного списока.
+ * @param <E>
+ * @author Aleksandr Kuznetsov
+ * @version 1.0
+ */
 public class SimpleLinkedList<E> implements List<E> {
     private Node<E> first;
 
@@ -32,6 +38,10 @@ public class SimpleLinkedList<E> implements List<E> {
         }
     }
 
+    /**
+     * Метод добавляет новый узел в конец списка.
+     * @param value значение нового узла.
+     */
     @Override
     public void add(E value) {
         Node<E> newNode = new Node<>(value, null);
@@ -45,6 +55,11 @@ public class SimpleLinkedList<E> implements List<E> {
         modCount++;
     }
 
+    /**
+     * Метод перебирает узлы до указаного индекса и возвращает значение узла.
+     * @param index индекс узла.
+     * @return значение узла.
+     */
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
