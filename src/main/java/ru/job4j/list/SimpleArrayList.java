@@ -21,6 +21,14 @@ public class SimpleArrayList<T> implements List<T> {
     }
 
     /**
+     * Метод увеличивает размер списка в два раза.
+     * @return новый список.
+     */
+    public T[] grow() {
+        return Arrays.copyOf(container, container.length * 2);
+    }
+
+    /**
      * Метод добавляет в конце списка новый элемент.
      * @param value новый элемент.
      */
@@ -28,10 +36,21 @@ public class SimpleArrayList<T> implements List<T> {
     public void add(T value) {
         modCount++;
         if (size == container.length) {
-            container = Arrays.copyOf(container, container.length * 2);
+            container = grow();
         }
         container[size] = value;
         size++;
+    }
+
+    /**
+     * Метод делает валидацию индекса и возвращает элемент на указанной позиции.
+     * @param index позиция элемента, который нужно вернуть.
+     * @return найденный элемент.
+     */
+    @Override
+    public T get(int index) {
+        Objects.checkIndex(index, container.length);
+        return container[index];
     }
 
     /**
@@ -42,8 +61,7 @@ public class SimpleArrayList<T> implements List<T> {
      */
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, container.length);
-        T oldValue = container[index];
+        T oldValue = get(index);
         container[index] = newValue;
         return oldValue;
     }
@@ -55,24 +73,12 @@ public class SimpleArrayList<T> implements List<T> {
      */
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, container.length);
+        T removeValue = get(index);
         modCount++;
-        T removeValue = container[index];
         System.arraycopy(container, index + 1, container, index, container.length - index - 1);
         container[container.length - 1] = null;
         size--;
         return removeValue;
-    }
-
-    /**
-     * Метод возвращает элемент на указанной позиции.
-     * @param index позиция элемента, который нужно вернуть.
-     * @return найденный элемент.
-     */
-    @Override
-    public T get(int index) {
-        Objects.checkIndex(index, container.length);
-        return container[index];
     }
 
     /**
