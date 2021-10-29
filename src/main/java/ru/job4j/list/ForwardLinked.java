@@ -3,9 +3,19 @@ package ru.job4j.list;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * Реализация односвязного списка.
+ * @param <T> тип данных односвязного списка.
+ * @author Aleksandr Kuznetsov
+ * @version 1.0
+ */
 public class ForwardLinked<T> implements Iterable<T> {
     private Node<T> head;
 
+    /**
+     * Метод добавляет узел в конец односвязного списка.
+     * @param value значение узла.
+     */
     public void add(T value) {
         Node<T> node = new Node<T>(value, null);
         if (head == null) {
@@ -19,6 +29,21 @@ public class ForwardLinked<T> implements Iterable<T> {
         tail.next = node;
     }
 
+    /**
+     * Метод добавляет узел в начало односвязного списка.
+     * @param value значение узла.
+     */
+    public void addFirst(T value) {
+        if (head == null) {
+            add(value);
+        }
+        head = new Node<T>(value, head);
+    }
+
+    /**
+     * Метод удаляет первый узел списка.
+     * @return удаленное значение.
+     */
     public T deleteFirst() {
         if (head == null) {
             throw new NoSuchElementException();
