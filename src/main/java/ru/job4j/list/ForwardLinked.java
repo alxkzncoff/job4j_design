@@ -51,6 +51,29 @@ public class ForwardLinked<T> implements Iterable<T> {
         return node.value;
     }
 
+    /**
+     * Метод разворачивает односвязный список.
+     * Суть алгоритма заключается в установлении текущему ссылки
+     * на следующий в качестве предыдущего. Далее мы просто обновляем
+     * значения текущего и предыдущего. Наконец, предыдущий ставится головой списка.
+     * @return true если список можно перевернуть.
+     */
+    public boolean revert() {
+        if (head == null || head.next == null) {
+            return false;
+        }
+        Node<T> previous = null;
+        Node<T> current = head;
+        while (current != null) {
+            Node<T> next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+        head = previous;
+        return true;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
