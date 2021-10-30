@@ -1,6 +1,7 @@
 package ru.job4j.list;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Реализация очереди с помощью двух стеков.
@@ -23,6 +24,9 @@ public class SimpleQueue<T> {
      * @return первое значение в очереди.
      */
     public T poll() {
+        if (inSize == 0 && outSize == 0) {
+            throw new NoSuchElementException();
+        }
         if (outSize == 0) {
             while (inSize > 0) {
                 out.push(in.pop());
