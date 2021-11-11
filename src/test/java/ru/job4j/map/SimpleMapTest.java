@@ -20,7 +20,15 @@ public class SimpleMapTest {
     public void putFalse() {
         SimpleMap<String, Integer> map = new SimpleMap<>();
         map.put("a", 1);
-        Assert.assertFalse(map.put("a", 2));
+        Assert.assertFalse(map.put("i", 2));
+    }
+
+    @Test
+    public void putNewValue() {
+        SimpleMap<String, Integer> map = new SimpleMap<>();
+        map.put("a", 1);
+        map.put("a", 2);
+        Assert.assertThat(map.get("a"), is(2));
     }
 
     @Test
@@ -36,6 +44,13 @@ public class SimpleMapTest {
         map.put("a", 1);
         map.put("b", 2);
         Assert.assertThat(map.get("c"), is(nullValue()));
+    }
+
+    @Test
+    public void getSameIndex() {
+        SimpleMap<String, Integer> map = new SimpleMap<>();
+        map.put("a", 1);
+        Assert.assertThat(map.get("i"), is(nullValue()));
     }
 
     @Test
