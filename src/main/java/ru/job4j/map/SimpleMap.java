@@ -32,21 +32,20 @@ public class SimpleMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean put(K key, V value) {
+        boolean rsl = false;
         if (count >= LOAD_FACTOR * capacity) {
             expand();
         }
         int hash = (key == null) ? 0 : hash(key.hashCode());
         int index = indexFor(hash);
         MapEntry<K, V> pair = new MapEntry<>(key, value);
-        if (table[index] != null) {
-            if (!table[index].key.equals(key)) {
-                return false;
-            }
+        if (table[index] == null) {
+            table[index] = pair;
+            modCount++;
+            count++;
+            rsl = true;
         }
-        table[index] = pair;
-        modCount++;
-        count++;
-        return true;
+        return rsl;
     }
 
     /**

@@ -24,14 +24,6 @@ public class SimpleMapTest {
     }
 
     @Test
-    public void putNewValue() {
-        SimpleMap<String, Integer> map = new SimpleMap<>();
-        map.put("a", 1);
-        map.put("a", 2);
-        Assert.assertThat(map.get("a"), is(2));
-    }
-
-    @Test
     public void get() {
         SimpleMap<String, Integer> map = new SimpleMap<>();
         map.put("a", 1);
@@ -65,8 +57,7 @@ public class SimpleMapTest {
     public void removeFalse() {
         SimpleMap<String, Integer> map = new SimpleMap<>();
         map.put("a", 1);
-        map.put("b", 2);
-        Assert.assertFalse(map.remove("c"));
+        Assert.assertFalse(map.remove("i"));
     }
 
     @Test
