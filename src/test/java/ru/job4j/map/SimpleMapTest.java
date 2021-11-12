@@ -57,6 +57,13 @@ public class SimpleMapTest {
     public void removeFalse() {
         SimpleMap<String, Integer> map = new SimpleMap<>();
         map.put("a", 1);
+        Assert.assertFalse(map.remove("b"));
+    }
+
+    @Test
+    public void removeFalseDifferentKeysSameHash() {
+        SimpleMap<String, Integer> map = new SimpleMap<>();
+        map.put("a", 1);
         Assert.assertFalse(map.remove("i"));
     }
 
