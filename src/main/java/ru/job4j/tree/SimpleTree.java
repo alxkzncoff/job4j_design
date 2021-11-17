@@ -3,6 +3,12 @@ package ru.job4j.tree;
 import java.util.*;
 import java.util.function.Predicate;
 
+/**
+ * Элементарная структура данных - дерево.
+ * @param <E> элементы дерева.
+ * @author Aleksandr Kuznetsov.
+ * @version 1.0
+ */
 public class SimpleTree<E> implements Tree<E> {
     private final Node<E> root;
 
@@ -10,6 +16,12 @@ public class SimpleTree<E> implements Tree<E> {
         this.root = new Node<>(root);
     }
 
+    /**
+     * Метод добавляет новый элемент в дерево.
+     * @param parent родительский узел.
+     * @param child потомки.
+     * @return true, если элемент добавлен, иначе false.
+     */
     @Override
     public boolean add(E parent, E child) {
         Optional<Node<E>> parentNode = findBy(parent);
@@ -20,11 +32,20 @@ public class SimpleTree<E> implements Tree<E> {
         return rsl;
     }
 
+    /**
+     * Метод ищет элемент дерева по значению.
+     * @param value значение для поиска.
+     * @return Optional элемент дерева.
+     */
     @Override
     public Optional<Node<E>> findBy(E value) {
         return findByPredicate(el -> Objects.equals(el.getValue(), value));
     }
 
+    /**
+     * Метод проверяет бинарное дерево или нет.
+     * @return true или false.
+     */
     @Override
     public boolean isBinary() {
         return findByPredicate(el -> el.getChildren().size() > 2).isEmpty();
