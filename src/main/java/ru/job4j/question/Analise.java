@@ -2,6 +2,7 @@ package ru.job4j.question;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Класс определяет разницу между начальным и измененным состоянием множества.
@@ -17,41 +18,23 @@ public class Analise {
      * @return Info.
      */
     public static Info diff(Set<User> previous, Set<User> current) {
-        int added = 0;
-        int changed = 0;
-        int deleted = 0;
-        Info info = new Info(added, changed, deleted);
+        Info info = new Info(0, 0, 0);
         if (previous.equals(current)) {
             return info;
         }
         Map<Integer, String> currentMap = current.stream().collect(
                 Collectors.toMap(User::getId, User::getName));
-        Map<Integer, String> previousMap = previous.stream().collect(
-                Collectors.toMap(User::getId, User::getName));
-        Iterator<User> currentIt = current.iterator();
-        Iterator<User> previousIt = previous.iterator();
-        while (currentIt.hasNext() || previousIt.hasNext()) {
-            if (currentIt.hasNext()) {
-                User currentNext = currentIt.next();
-                if (!previousMap.containsKey(currentNext.getId())) {
-                    added++;
-                    info.setAdded(added);
-                }
-
-            }
-            if (previousIt.hasNext()) {
-                User previousNext = previousIt.next();
-                if (!currentMap.containsKey(previousNext.getId())) {
-                    deleted++;
-                    info.setDeleted(deleted);
-                }
-                if (currentMap.get(previousNext.getId()) != null
-                        && !Objects.equals(
-                                currentMap.get(previousNext.getId()), previousNext.getName())) {
-                    changed++;
-                    info.setChanged(changed);
+        for (User user: previous) {
+            if (currentMap.containsKey(user.getId())) {
+                if (!currentMap.get(user.getId()).equals(user.getName())) {
+                    info.setChanged(info.getChanged() + 1);
                 }
             }
+            if (!currentMap.containsKey(user.getId())) {
+                info.setDeleted(info.getDeleted() + 1);
+            }
+            currentMap.remove(user.getId());
+            info.setAdded(currentMap.size());
         }
         return info;
     }
