@@ -12,7 +12,7 @@ import java.util.StringJoiner;
  * @version 1.0
  */
 public class Analizy {
-    public void unavailable(String source, String target) {
+    public static void unavailable(String source, String target) {
         List<String> in = new ArrayList<>();
         boolean serverUp = true;
         String period = "";
@@ -44,7 +44,6 @@ public class Analizy {
     public static void main(String[] args) {
         String source = "./data/server.log";
         String target = "./data/unavailable.csv";
-        Analizy analizy = new Analizy();
-        analizy.unavailable(source, target);
+        Analizy.unavailable(source, target);
     }
 }
