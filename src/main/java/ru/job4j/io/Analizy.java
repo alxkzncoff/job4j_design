@@ -12,32 +12,31 @@ import java.util.StringJoiner;
  * @version 1.0
  */
 public class Analizy {
+    private static boolean serverUp = true;
+
     public static void unavailable(String source, String target) {
-        List<String> in = new ArrayList<>();
-        boolean serverUp = true;
-        String period = "";
+        StringBuilder period = new StringBuilder();
         try (BufferedReader read = new BufferedReader(new FileReader(source))) {
-            read.lines().forEach(in::add);
+            read.lines().forEach(line -> {
+                if ((line.startsWith("4") || line.startsWith("5")) && serverUp) {
+                    period.append(line.split(" ")[1]).append(";");
+                    serverUp = false;
+                }
+                if ((line.startsWith("2") || line.startsWith("3")) && !serverUp) {
+                    period.append(line.split(" ")[1]).append(";").append(System.lineSeparator());
+                    serverUp = true;
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (String line: in) {
-            if ((line.startsWith("4") || line.startsWith("5")) && serverUp) {
-                period = period.concat(line.split(" ")[1] + ";");
-                serverUp = false;
-            }
-            if ((line.startsWith("2") || line.startsWith("3")) && !serverUp) {
-                period = period.concat(line.split(" ")[1] + ";" + System.lineSeparator());
-                serverUp = true;
-                try (PrintWriter out = new PrintWriter(
-                        new BufferedOutputStream(
-                                new FileOutputStream(target)
-                        ))) {
-                    out.println(period);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+        try (PrintWriter out = new PrintWriter(
+                new BufferedOutputStream(
+                        new FileOutputStream(target)
+                ))) {
+            out.println(period);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

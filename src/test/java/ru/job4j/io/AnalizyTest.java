@@ -25,7 +25,7 @@ public class AnalizyTest {
             out.println("300 10:58:01");
             out.println("400 10:59:01");
             out.println("300 11:01:02");
-            out.println("500 11:02:02");
+            out.println("200 11:02:02");
         }
         Analizy.unavailable(source.getAbsolutePath(), target.getAbsolutePath());
         StringBuilder rsl = new StringBuilder();
