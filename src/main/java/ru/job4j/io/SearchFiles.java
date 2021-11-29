@@ -25,10 +25,6 @@ public class SearchFiles implements FileVisitor<Path> {
         return paths;
     }
 
-    private void addPaths(Path path) {
-        paths.add(path);
-    }
-
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
             throws IOException {
@@ -38,7 +34,7 @@ public class SearchFiles implements FileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         if (condition.test(file)) {
-            addPaths(file);
+            paths.add(file);
         }
         return CONTINUE;
     }

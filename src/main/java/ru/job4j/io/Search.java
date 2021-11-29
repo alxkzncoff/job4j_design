@@ -7,6 +7,11 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * Программа ищет файлы заданному предикату.
+ * @author Aleksandr Kuznetsov.
+ * @version 1.0
+ */
 public class Search {
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
         SearchFiles searcher = new SearchFiles(condition);
