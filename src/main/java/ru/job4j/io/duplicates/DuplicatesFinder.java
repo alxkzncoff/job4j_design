@@ -7,6 +7,11 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.Scanner;
 
+/**
+ * Программа ищет одинаковые файлы в указанной директории и выводит их на экран.
+ * @author Aleksandr Kzunetsov.
+ * @version 1.0
+ */
 public class DuplicatesFinder {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -29,15 +34,9 @@ public class DuplicatesFinder {
                 System.out.println("Path contains wrong characters.");
             }
         } while (invalid);
-        for (String duplicate: searcher.getDuplicates()) {
-            System.out.printf("Duplicate file - %s" + System.lineSeparator()
-                    + "Paths: " + System.lineSeparator(), duplicate);
-            for (Path path: searcher.getPaths()) {
-                if (path.endsWith(duplicate)) {
-                    System.out.println(path.toAbsolutePath());
-                }
-            }
-            System.out.println();
-        }
+        searcher.getPaths().entrySet().stream()
+                .filter(file -> file.getValue().size() > 1)
+                .forEach(file -> file.getValue().
+                        forEach(System.out::println));
     }
 }
