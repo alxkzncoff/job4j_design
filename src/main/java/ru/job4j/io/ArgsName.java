@@ -19,11 +19,12 @@ public class ArgsName {
 
     private void parse(String[] args) {
         if (args.length == 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Parameters missed. Add at least one parameter.");
         }
         for (String arg: args) {
             if (arg.split("=").length < 2) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Wrong parameters. "
+                        + "Parameters should contain keys and values.");
             }
             values.put(arg.split("=")[0].substring(1), arg.split("=")[1]);
         }
