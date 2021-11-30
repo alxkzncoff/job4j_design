@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Программа ищет файлы заданному предикату.
+ * Программа ищет файлы по заданному предикату.
  * @author Aleksandr Kuznetsov.
  * @version 1.0
  */
