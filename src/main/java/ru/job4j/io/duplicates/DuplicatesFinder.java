@@ -23,7 +23,7 @@ public class DuplicatesFinder {
                         + "or type 'exit':"
                         + System.lineSeparator());
                 String start = scanner.nextLine();
-                if (start.equals("exit")) {
+                if ("exit".equals(start)) {
                     break;
                 }
                 Files.walkFileTree(Path.of(start), searcher);
