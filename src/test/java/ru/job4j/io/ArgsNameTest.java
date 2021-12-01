@@ -27,6 +27,16 @@ public class ArgsNameTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void whenWrongSomeArgument() {
-        ArgsName jvm = ArgsName.of(new String[] {"-enconding=UTF-8", "-Xmx="});
+        ArgsName jvm = ArgsName.of(new String[] {"-encoding=UTF-8", "-Xmx="});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenKeyWrong() {
+        ArgsName jvm = ArgsName.of(new String[] {"encoding=UTF-8", "-Xmx=512"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenMissSplitter() {
+        ArgsName jvm = ArgsName.of(new String[] {"-encoding=UTF-8", "-Xmx 512"});
     }
 }

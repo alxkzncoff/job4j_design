@@ -22,11 +22,16 @@ public class ArgsName {
             throw new IllegalArgumentException("Parameters missed. Add at least one parameter.");
         }
         for (String arg: args) {
-            if (arg.split("=").length < 2) {
+            if (!arg.startsWith("-") || !arg.contains("=")) {
                 throw new IllegalArgumentException("Wrong parameters. "
-                        + "Parameters should contain keys and values.");
+                        + "Use pattern -key=value.");
             }
-            values.put(arg.split("=")[0].substring(1), arg.split("=")[1]);
+            String[] parameter = arg.substring(1).split("=");
+            if (parameter.length < 2) {
+                throw new IllegalArgumentException("Wrong parameters. "
+                        + "Key or value missed.");
+            }
+            values.put(parameter[0], parameter[1]);
         }
     }
 
