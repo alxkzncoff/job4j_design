@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.Random;
+import java.nio.charset.*;
 
 /**
  * Консольный чат с ботом. Для начала общения пользователь должен ввести слово-фразу.
@@ -16,7 +17,7 @@ import java.util.Random;
  * При вводе слова "закончить" программа прекращает работу.
  * Все слова-фразы пользователя и бота записываются в лог файл.
  * @author Aleksandr Kuznetsov.
- * @version 1.0
+ * @version 1.1
  */
 public class ConsoleChat {
 
@@ -25,6 +26,7 @@ public class ConsoleChat {
     private static final String CONTINUE = "продолжить";
     private final String path;
     private final String botAnswers;
+    private String status;
 
     public ConsoleChat(String path, String botAnswers) {
         this.path = path;
@@ -35,7 +37,6 @@ public class ConsoleChat {
      * Метод содержит логику чата.
      */
     public void run() {
-        String status = CONTINUE;
         List<String> bot = readPhrases();
         List<String> log = new ArrayList<>();
         Random answerIndex = new Random();
@@ -50,7 +51,7 @@ public class ConsoleChat {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Пользователь: ");
             String user = scanner.nextLine();
-            status = command(user);
+            command(user);
             log.add("Пользователь: " + System.lineSeparator() + user + System.lineSeparator());
             if (!OUT.equals(status) && !STOP.equals(status)) {
                 String answer = bot.get(answerIndex.nextInt(bot.size()));
@@ -80,11 +81,10 @@ public class ConsoleChat {
      * @param log - лог чата.
      */
     private void saveLog(List<String> log) {
-        try (PrintWriter out = new PrintWriter(
-                new BufferedOutputStream(
-                        new FileOutputStream(path)))) {
+        try (PrintWriter pw = new PrintWriter(
+                new FileWriter(path, Charset.forName("WINDOWS-1251")))) {
             for (String line: log) {
-                out.println(line);
+                pw.println(line);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,17 +95,17 @@ public class ConsoleChat {
      * Метод определяет состояние чата на основе данных,
      * вводимых пользователем.
      * @param str сообщение пользователя.
-     * @return команду.
      */
-    private String command(String str) {
-        String rsl = CONTINUE;
+    private void command(String str) {
         if (STOP.equals(str)) {
-            rsl = STOP;
+            status = STOP;
+        }
+        if (CONTINUE.equals(str)) {
+            status = CONTINUE;
         }
         if (OUT.equals(str)) {
-            rsl = OUT;
+            status = OUT;
         }
-        return rsl;
     }
 
     public static void main(String[] args) {
