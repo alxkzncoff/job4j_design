@@ -1,0 +1,8 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<game id="2" title="Halo Infinity" multiplayer="true">
+    <platform company="Microsoft" name="Xbox series X" currentGeneration="true"/>
+    <genres>
+        <genre>FPS</genre>
+        <genre>Adventure</genre>
+    </genres>
+</game>
