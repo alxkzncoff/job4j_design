@@ -1,13 +1,26 @@
 package ru.job4j.serialization.json;
 
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
+@XmlRootElement(name = "game")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Game {
-    private final int id;
-    private final String title;
-    private final Platform platform;
-    private final String[] genres;
-    private final boolean multiplayer;
+
+    @XmlAttribute
+    private int id;
+    @XmlAttribute
+    private String title;
+    private Platform platform;
+
+    @XmlElementWrapper(name = "genres")
+    @XmlElement(name = "genre")
+    private String[] genres;
+
+    @XmlAttribute
+    private boolean multiplayer;
+
+    public Game() { }
 
     public Game(int id, String title, Platform platform, String[] genres, boolean multiplayer) {
         this.id = id;

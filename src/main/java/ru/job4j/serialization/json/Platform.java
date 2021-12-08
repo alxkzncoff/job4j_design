@@ -1,9 +1,18 @@
 package ru.job4j.serialization.json;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "platform")
 public class Platform {
-    private final String company;
-    private final String name;
-    private final boolean currentGeneration;
+
+    @XmlAttribute
+    private String company;
+    @XmlAttribute
+    private String name;
+    @XmlAttribute
+    private boolean currentGeneration;
+
+    public Platform() { }
 
     public Platform(String company, String name, boolean currentGeneration) {
         this.company = company;
