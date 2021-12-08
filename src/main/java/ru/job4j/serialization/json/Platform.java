@@ -20,6 +20,18 @@ public class Platform {
         this.currentGeneration = currentGeneration;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isCurrentGeneration() {
+        return currentGeneration;
+    }
+
     @Override
     public String toString() {
         return "Platform{"

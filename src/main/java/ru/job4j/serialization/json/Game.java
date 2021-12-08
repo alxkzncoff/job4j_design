@@ -30,6 +30,26 @@ public class Game {
         this.multiplayer = multiplayer;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Platform getPlatform() {
+        return platform;
+    }
+
+    public String[] getGenres() {
+        return genres;
+    }
+
+    public boolean isMultiplayer() {
+        return multiplayer;
+    }
+
     @Override
     public String toString() {
         return "Game{"

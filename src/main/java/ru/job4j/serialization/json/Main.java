@@ -1,13 +1,15 @@
 package ru.job4j.serialization.json;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -30,5 +32,29 @@ public class Main {
             Game result = (Game) unmarshaller.unmarshal(reader);
             System.out.println(result);
         }
+
+        JSONObject jsonPlatform = new JSONObject("{\"company\":\"Nintendo\", "
+                + "\"name\":\"Nintendo switch\", "
+                + "\"currentGeneration\":\"true\"}");
+
+        List<String> list = new ArrayList<>();
+        list.add("Arcade");
+        list.add("Adventure");
+        JSONArray jsonArray =  new JSONArray(list);
+
+        final Game nintendoGame = new Game(3, "Super Mario Odyssey",
+                new Platform("Nintendo", "Nintendo switch", true),
+                new String[] {"Arcade", "Adventure"}, false);
+
+        JSONObject jsonObject =  new JSONObject();
+        jsonObject.put("id", nintendoGame.getId());
+        jsonObject.put("title", nintendoGame.getTitle());
+        jsonObject.put("platform", jsonPlatform);
+        jsonObject.put("genres", jsonArray);
+        jsonObject.put("multiplayer", nintendoGame.isMultiplayer());
+
+        System.out.println(jsonObject);
+
+        System.out.println(new JSONObject(nintendoGame));
     }
 }
