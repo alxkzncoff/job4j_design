@@ -28,10 +28,11 @@ public class FindVisitor extends SimpleFileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if (searchType.equals("name") && file.getFileName().toString().contains(searchParams)) {
+        if ("name".equals(searchType) && file.getFileName().toString().equals(searchParams)) {
             paths.add(file);
         }
-        if (searchType.equals("mask") && file.toFile().getName().endsWith(searchParams)) {
+        if ("mask".equals(searchType) && file.toFile()
+                .getName().endsWith(searchParams.split("\\.")[1])) {
             paths.add(file);
         }
         if (searchType.equals("regex")) {
