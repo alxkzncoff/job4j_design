@@ -46,7 +46,7 @@ insert into car(name, body_id, engine_id, transmission_id) values ('kia', 4, 4, 
 insert into car(name, body_id, engine_id, transmission_id) values ('renault', 1, 3, 1);
 
 -- Without view
-select c.name as Model, b.type, e.name, e.powe, t.name 
+select c.name as Model, b.type, e.name, e.power, t.name 
 from car c
 left join body b on b.id = c.body_id
 left join engine e on e.id = c.engine_id
