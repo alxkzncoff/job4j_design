@@ -25,3 +25,11 @@ env:
   global:
 
     - CODECOV_TOKEN='72531cd7-c8d8-48f3-a959-3f91cefb4d4d'
+
+# Start PostgreSQL
+services:
+  - postgresql
+
+# Create a database
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres

@@ -4,9 +4,12 @@ import java.util.*;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+/**
+ * Класс читает файлы конфигурации.
+ * @author Aleksandr Kuznetsov.
+ * @version 1.0
+ */
 public class Config {
 
     private final String path;
@@ -16,6 +19,9 @@ public class Config {
         this.path = path;
     }
 
+    /**
+     * Метод считывает все ключи в карту values.
+     */
     public void load() {
         List<String> out = new ArrayList<>();
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
