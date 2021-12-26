@@ -5,7 +5,6 @@ import java.sql.*;
 import java.util.Properties;
 import java.util.StringJoiner;
 
-
 /**
  * Класс для работы с табоицами БД. Реализованы базовые функции:
  * создание таблицы, удаление таблицы, добавление колонки,
@@ -30,7 +29,8 @@ public class TableEditor implements AutoCloseable {
 
     private void sqlQuery(String query) throws Exception {
         Class.forName(properties.getProperty("driver"));
-        connection = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("login"),
+        connection = DriverManager.getConnection(properties.getProperty("url"),
+                properties.getProperty("login"),
                 properties.getProperty("password"));
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(query);
@@ -57,7 +57,7 @@ public class TableEditor implements AutoCloseable {
      * @param tableName имя таблицы.
      */
     public void dropTable(String tableName) throws Exception {
-        String sql= String.format(
+        String sql = String.format(
                 "drop table if exists %s",
                 tableName
         );
@@ -103,7 +103,8 @@ public class TableEditor implements AutoCloseable {
      * @param columnName имя столбца.
      * @param newColumnName новое имя столбца.
      */
-    public void renameColumn(String tableName, String columnName, String newColumnName) throws Exception {
+    public void renameColumn(String tableName, String columnName,
+                             String newColumnName) throws Exception {
         String sql = String.format(
                 "alter table %s rename column %s to %s",
                 tableName,
