@@ -18,30 +18,27 @@ public class TableEditor implements AutoCloseable {
 
     private final Properties properties;
 
-    public TableEditor(Properties properties) {
+    public TableEditor(Properties properties) throws Exception {
         this.properties = properties;
         initConnection();
     }
 
-    private void initConnection() {
-        connection = null;
-    }
-
-    private void sqlQuery(String query) throws Exception {
+    private void initConnection() throws Exception {
         Class.forName(properties.getProperty("driver"));
         connection = DriverManager.getConnection(properties.getProperty("url"),
                 properties.getProperty("login"),
                 properties.getProperty("password"));
+    }
+
+    private void sqlQuery(String query) throws Exception {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(query);
         }
-
     }
 
     /**
      * Метод создает таблицу с указанным именем.
      * @param tableName имя таблицы.
-     * @throws Exception
      */
     public void createTable(String tableName) throws Exception {
         String sql = String.format(
