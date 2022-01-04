@@ -33,7 +33,15 @@ public class ImportDB {
     public List<User> load() throws IOException {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-            rd.lines().forEach(u -> users.add(new User(u.split(";")[0], u.split(";")[1])));
+            rd.lines().forEach(u -> {
+                if (u.split(";").length != 2) {
+                    throw new IllegalArgumentException("Pair error.");
+                }
+                if (u.split(";")[0].length() == 0 || u.split(";")[1].length() == 0) {
+                    throw new IllegalArgumentException("Empty values.");
+                }
+                users.add(new User(u.split(";")[0], u.split(";")[1]));
+            });
         }
         return users;
     }
